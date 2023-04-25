@@ -474,7 +474,8 @@ class HtmlParse
                 $tagObject->posStart = $posCur;
                 $tagObject->posEnd = $i;
                 $tagObject->innerText = $innerText;
-                $this->tags[] = $tagObject;
+                $this->tags[$tagObject->posStart] = $tagObject;
+                ksort($this->tags);
 
                 // 添加已解析标识
                 $this->setSourceHtmlByte($posCur, true, $i);
@@ -563,10 +564,16 @@ class HtmlParse
                     // 数据遍历，渲染数据
                     $data = array_map(function ($item)use($tpl){
                         foreach ($tpl->getTags() as $tmpTag){
+                            // if处理
+                            if ($tmpTag->tagName == 'if'){
+                                $valKey = str_replace('field:', '', $tmpTag->getAttribute('data'));
+                                $tmpTag->assign($this->tagIf($tmpTag, $item[$valKey] ?? false));
+                                continue;
+                            }
                             // foreach处理
                             if ($tmpTag->tagName == 'foreach'){
                                 $valKey = str_replace('field:', '', $tmpTag->getAttribute('array'));
-                                $tmpTag->assign($this->tagForeach($tmpTag, $item[$valKey] ?? ''));
+                                $tmpTag->assign($this->tagForeach($tmpTag, $item[$valKey] ?? []));
                                 continue;
                             }
 

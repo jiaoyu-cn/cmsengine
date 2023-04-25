@@ -24,6 +24,7 @@ trait TagTrait {
         'include',  // 文件包含
         'global',   // 全局属性标签
         'foreach',  // 遍历
+        'if', //if判断
     ];
 
     /**
@@ -85,6 +86,18 @@ trait TagTrait {
         unset($tpl);
 
         return $this;
+    }
+
+    /**
+     * if 标签
+     * @param Tag $tag
+     * @param array $data 判断数据
+     * @return string
+     * @throws HtmlParseException
+     */
+    public function tagIf($tag, $data = false): string
+    {
+        return empty($data) ? '' : $tag->innerText;
     }
 
     /**
