@@ -725,7 +725,7 @@ class HtmlParse
         $posEnd = $posEnd ?: $posStart;
 
         // 遍历每个字节
-        for ($i = $this->posToByte($posStart); $i <= $this->posToByte($posEnd); $i++){
+        for ($i = $this->posToByte($posStart); $i < $this->posToByte($posEnd); $i++){
 
             $curByte = ord($this->sourceHtmlByte[$i]);
 
