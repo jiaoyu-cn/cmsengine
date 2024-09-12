@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "illuminate/support": "^6.20",
+        "illuminate/support": "^6.20|^8.0",
         "ext-mbstring": "*"
     },
     "extra": {
