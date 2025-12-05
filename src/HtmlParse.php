@@ -587,7 +587,7 @@ class HtmlParse
                         }
                         return $tpl->fetch();
                     }, $tagConfig['type'] == 'page' ? $data['items']:$data);
-                    $data = implode($data, "");
+                    $data = implode("", $data);
                     unset($tpl);
                 }
 
